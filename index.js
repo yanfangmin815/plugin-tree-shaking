@@ -77,7 +77,7 @@ const generateTryStatement = ({body=[]}) => {
 }
 
 
-class AutoTryCatch {
+class TreeShaking {
   constructor(options = {}) {
     if (!_.isObject(options)) {
       console.log("\x1b[31m Warning: \x1b[0m  \x1b[35m auto-add-try-catch's options should be a object \x1b[0m ");
@@ -283,11 +283,11 @@ handleTraverse(ast='', filePath='') {
     const watchClose = this.watchClose.bind(this);
 
     if (compiler.hooks) {
-      compiler.hooks.watchRun.tap('AutoTryCatch', () => {
+      compiler.hooks.watchRun.tap('TreeShaking', () => {
         this.isWatching = true;
       });
-      compiler.hooks.done.tap('AutoTryCatch', init);
-      compiler.hooks.watchClose.tap('AutoTryCatch', watchClose);
+      compiler.hooks.done.tap('TreeShaking', init);
+      compiler.hooks.watchClose.tap('TreeShaking', watchClose);
     } else {
       compiler.plugin('watchRun', () => {
         this.isWatching = true;
@@ -298,4 +298,4 @@ handleTraverse(ast='', filePath='') {
   }
 }
 
-module.exports = AutoTryCatch;
+module.exports = TreeShaking;
